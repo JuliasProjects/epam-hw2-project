@@ -8,16 +8,12 @@ public  class Necropolis extends World {
     static boolean BLESS_IMMUNITY = true;
 
     public Necropolis(int attackPoints, int definePoints, int damagePoints,
-                      int healthPoints, int speed, int x, String speciality) {
-        super(attackPoints, definePoints, damagePoints, healthPoints, speed, x, speciality);
+                      int healthPoints, int speed, int x, String spell) {
+        super(attackPoints, definePoints, damagePoints, healthPoints, speed, x, spell);
     }
 
 
-    public void necromancy() {
+    public void necromancy(Undead undead) {
 
     }
-
-
-
-
 }

@@ -2,7 +2,6 @@ package NECROPOLIS;
 
 
 public class Undead extends Necropolis {
-
     public Undead(int attackPoints, int definePoints, int damagePoints, int healthPoints,
                   int speed, int x, String speciality) {
         super(attackPoints, definePoints, damagePoints, healthPoints, speed, x, speciality);
@@ -42,20 +41,32 @@ public class Undead extends Necropolis {
     }
 
     @Override
-    public void die(Undead undead) {
+    public void die(Undead undead) throws DeadException {
         if (undead.getHealthPoints() <= 0) {
-            undead = null;
+            throw new DeadException("What Is Dead May Never Die!");
         }
     }
 
     @Override
-    public void necromancy() {
+    public void necromancy(Undead undead) {
+
+        if (undead.getHealthPoints()<=0){
+
+        }
 
     }
 
     public int freeze(NPC enemy) {
+        int count = enemy.getHealthPoints();
+        while (count!=0) {
+            String spell = "meus gelidus inimicus mihi vita";
+            System.out.println(spell);
+            count--;
 
-        return 0;
+
+        }
+
+        return count;
     }
 
 }

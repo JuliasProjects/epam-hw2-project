@@ -26,9 +26,9 @@ public class NPC extends World {
         return true;
     }
 
-    void die(Undead undead) {
-        if (undead.getHealthPoints() <= 0) {
-            undead = null;
+    void die(NPC npc) {
+        if (npc.getHealthPoints() <= 0) {
+            npc = null;
         }
     }
 }

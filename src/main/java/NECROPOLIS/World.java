@@ -90,7 +90,7 @@ public abstract class World {
         return true;
     }
 
-    void die(Undead undead) {
+    void die(Undead undead) throws DeadException {
 
     }
 }
