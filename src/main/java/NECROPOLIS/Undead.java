@@ -1,175 +1,73 @@
 package NECROPOLIS;
 
-import java.util.Random;
 
-public class Undead implements Necropolis {
-    private int attackRange; //дальность атаки
-    private int defence; //защита
-    private int damageDealt; //урон
-    private int health; //здоровье
-    private int speed; //скорость
-    private int level; //уровень
-    private String specialAbility; //спец чит
-    private int coordinateX; //координата Х
-
-    static boolean DEAD = true;
-    static boolean MORALITY_INDICATOR = false;
-    static boolean CURSE_IMMUNITY = false;
-    static boolean BLESS_IMMUNITY = false;
-
+public class Undead extends Necropolis {
     public Undead() {
-
     }
 
-    public Undead(int attackRange, int defence, int damageDealt, int health, int speed,
-                  int level, String specialAbility, int coordinateX) {
-        this.attackRange = attackRange;
-        this.defence = defence;
-        this.damageDealt = damageDealt;
-        this.health = health;
-        this.speed = speed;
-        this.level = level;
-        this.specialAbility = specialAbility;
-        this.coordinateX = coordinateX;
-    }
-
-    public int getAttackRange() {
-        return attackRange;
-    }
-
-    public void setAttackRange(int attackRange) {
-        this.attackRange = attackRange;
-    }
-
-    public int getDefence() {
-        return defence;
-    }
-
-    public void setDefence(int defence) {
-        this.defence = defence;
-    }
-
-    public int getDamageDealt() {
-        return damageDealt;
-    }
-
-    public void setDamageDealt(int damageDealt) {
-        this.damageDealt = damageDealt;
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
-    public int getSpeed() {
-        return speed;
-    }
-
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
-    public String getSpecialAbility() {
-        return specialAbility;
-    }
-
-    public void setSpecialAbility(String specialAbility) {
-        this.specialAbility = specialAbility;
-    }
-
-    public int getCoordinateX() {
-        return coordinateX;
-    }
-
-    public void setCoordinateX(int coordinateX) {
-        this.coordinateX = coordinateX;
+    public Undead(int attackPoints, int defencePoints, int damagePoints, int healthPoints,
+                  int speed, int x, String speciality) {
+        super(attackPoints, defencePoints, damagePoints, healthPoints, speed, x, speciality);
     }
 
     @Override
-    public String toString() {
-        return "Undead{" +
-                "attackRange=" + attackRange +
-                ", defence=" + defence +
-                ", damageDealt=" + damageDealt +
-                ", health=" + health +
-                ", speed=" + speed +
-                ", level=" + level +
-                ", specialAbility='" + specialAbility + '\'' +
-                ", coordinateX=" + coordinateX +
-                '}';
+    public boolean enemyDefinition(NPC enemy) {
+
+        if (enemy != null) {
+            System.out.println("Undead: Here is my enemy");
+            return true;
+        }
+        return false;
     }
 
     @Override
-    public int causeDamage(int damageDealt, int health, int defence) {
-        int damage = damageDealt - (health + defence);
-        return damage;
-    }
-
-    @Override
-    public int protection(int defence, int health, int attackRange) {
-        int damage = (defence + health) - attackRange;
-        return damage;
-    }
-
-    @Override
-    public void move(int attackRange) {
-        Random random = new Random();
-        int enemyPosition = random.nextInt(25);
-        while (this.attackRange < enemyPosition) {
-            coordinateX++;
+    public void move(NPC enemy) {
+        int distance = enemy.getX() - this.getX();
+        if (this.getAttackPoints() < distance) {
+            int xPos = enemy.getX();
+            System.out.println("Undead: I'm moving towards you");
+            if (xPos == enemy.getX()) {
+                System.out.println("Undead: I'm in front of my enemy!");
+            }
         }
 
     }
 
     @Override
-    public boolean enemyDefinition() {
-        Object o = new Object();
-        return o instanceof Undead;
+    public boolean fight(NPC enemy) {
+        int damage = this.getAttackPoints() - (this.getHealthPoints() + enemy.getDefencePoints());
+        System.out.println("Undead damage " + damage + " points");
+        return true;
     }
 
     @Override
-    public void die(int health) {
-        if (health <= 0 && this.level>=3){
+    public int protect() {
+        int damage = (this.getAttackPoints() + this.getDefencePoints()) + (this.getHealthPoints() + this.getAttackPoints());
+        System.out.println("Undead damage: " + damage + " points");
+        return damage;
+    }
+
+
+    @Override
+    public void die() {
+        if (this.getHealthPoints() <= 0) {
+            int health = this.getHealthPoints();
             health++;
-        } else {
-            System.out.println("dead");
+            System.out.println("Undead: What Is Dead May Never Die!" + '\t' + health + " health points added");
         }
+    }
+
+    @Override
+    public Undead necromancy() {
+        System.out.println("new Undead is created");
+        return new Undead();
+    }
+
+    public void throwMud() {
+
+        System.out.println("Taste Necropolis  mud!");
+
 
     }
 
-    void necromancy() {
-
-    }
-
-    void useSuperpower(String specialAbility) {
-
-    }
-
-    public void curseSpell(String s) {
-
-    }
-
-    void drinkLife() {
-
-    }
-
-    void attackWithoutResponse() {
-
-    }
-
-    public void addNewSkeletons() {
-
-    }
 }
