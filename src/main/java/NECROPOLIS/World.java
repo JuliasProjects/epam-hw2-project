@@ -5,6 +5,9 @@ public abstract class World {
     private int attackPoints, defencePoints, damagePoints, healthPoints, speed, x;
     private String speciality;
 
+    public World() {
+    }
+
     public World(int attackPoints, int defencePoints, int damagePoints,
                  int healthPoints, int speed, int x, String speciality) {
         this.attackPoints = attackPoints;
@@ -72,12 +75,12 @@ public abstract class World {
         this.speciality = speciality;
     }
 
-    int move(NPC enemy){
-        return 0;
+    void move(NPC enemy){
+
     }
 
-    int fight(NPC enemy) {
-        return 0;
+    boolean fight(NPC enemy) {
+        return true;
     }
 
     int protect() {
@@ -90,7 +93,7 @@ public abstract class World {
         return true;
     }
 
-    void die(Undead undead) throws DeadException {
+    void die()  {
 
     }
 }

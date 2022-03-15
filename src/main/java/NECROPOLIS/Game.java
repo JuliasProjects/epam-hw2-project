@@ -1,28 +1,68 @@
 package NECROPOLIS;
 
-public class Game {
-    public static void main(String[] args) throws DeadException {
-        Undead boneDragon = new Undead(17, 15, (int) (Math.random() * 25 + 25), 150,
-                9, 0, "freezer");
+import java.util.Random;
 
-        NPC demon = new NPC(2, 3, (int) (Math.random() * 2), 3,
-                9, 25, "pyromaniac");
+public class Game {
+    public static void main(String[] args) {
+
+        Undead boneDragon = new Undead();
+        boneDragon.setAttackPoints(17);
+        boneDragon.setDefencePoints(15);
+        boneDragon.setDamagePoints((int) (Math.random() * 25 + 25));
+        boneDragon.setHealthPoints(150);
+        boneDragon.setSpeed(9);
+        boneDragon.setX(0);
+        boneDragon.setSpeciality("Turns an enemy into an undead throwing mud");
+
+
+        NPC demon = new NPC();
+        demon.setAttackPoints(2);
+        demon.setDefencePoints(3);
+        demon.setDamagePoints((int) (Math.random() * 2 + 1));
+        demon.setHealthPoints(3);
+        demon.setSpeed(9);
+        demon.setX(25);
+        demon.setSpeciality("pyromaniac");
+
+
         attack(boneDragon, demon);
     }
 
-    public static void attack(Undead undead, NPC npc) throws DeadException {
-        undead.enemyDefinition(npc);
-        undead.move(npc);
-        undead.fight(npc);
-        undead.protect();
-        undead.die(undead);
-        undead.freeze(npc);
+    public static void attack(Undead undead, NPC npc) {
+        search(undead, npc);
 
+        while (undead.getDamagePoints() < undead.getHealthPoints() | npc.getDamagePoints() < npc.getHealthPoints()) {
+            randomFight(undead, npc);
+            int undeadHealth = undead.getHealthPoints();
+            undeadHealth--;
+
+            int npcHealth = npc.getHealthPoints();
+            npcHealth--;
+
+            if(npcHealth<=0 | undeadHealth<=0){
+                npc.die();
+                undead.die();
+            }
+        }
+
+
+    }
+
+    public static void search(Undead undead, NPC npc) {
+        undead.enemyDefinition(npc);
         npc.enemyDefinition(undead);
-        npc.move(npc);
-        npc.fight(undead);
+        undead.move(npc);
+        npc.move(undead);
+    }
+
+    public static void randomFight(Undead undead, NPC npc) {
+        //Random random = new Random();
+        undead.fight(npc);
         npc.protect();
-        npc.die(npc);
+        undead.throwMud();
+
+        npc.fight(undead);
+        undead.protect();
 
 
     }

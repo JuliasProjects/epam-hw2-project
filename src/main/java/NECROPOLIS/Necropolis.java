@@ -2,6 +2,9 @@ package NECROPOLIS;
 
 public  class Necropolis extends World {
 
+    public Necropolis() {
+    }
+
     static boolean DEAD = true;
     static boolean MORALITY_INDICATOR = false;
     static boolean CURSE_IMMUNITY = true;
@@ -13,7 +16,8 @@ public  class Necropolis extends World {
     }
 
 
-    public void necromancy(Undead undead) {
+    public Undead necromancy() {
+        return new Undead();
 
     }
 }
