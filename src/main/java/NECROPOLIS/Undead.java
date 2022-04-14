@@ -1,73 +1,51 @@
-package NECROPOLIS;
+package necropolis;
 
+public class Undead extends NPC implements Skills{
 
-public class Undead extends Necropolis {
-    public Undead() {
+    AbyssDemon abyssDemon;
+
+    public Undead(){
+
     }
 
-    public Undead(int attackPoints, int defencePoints, int damagePoints, int healthPoints,
-                  int speed, int x, String speciality) {
-        super(attackPoints, defencePoints, damagePoints, healthPoints, speed, x, speciality);
+    public Undead(int attackPoints, int defencePoints, int damage, int healthPoints, NPC enemy, int x) {
+        super(attackPoints, defencePoints, damage, healthPoints, enemy, x);
     }
 
-    @Override
-    public boolean enemyDefinition(NPC enemy) {
-
-        if (enemy != null) {
-            System.out.println("Undead: Here is my enemy");
-            return true;
-        }
-        return false;
+    public Undead(AbyssDemon abyssDemon) {
+        this.abyssDemon = abyssDemon;
     }
 
-    @Override
-    public void move(NPC enemy) {
-        int distance = enemy.getX() - this.getX();
-        if (this.getAttackPoints() < distance) {
-            int xPos = enemy.getX();
-            System.out.println("Undead: I'm moving towards you");
-            if (xPos == enemy.getX()) {
-                System.out.println("Undead: I'm in front of my enemy!");
-            }
+    public Undead necromancy(){
+        if(abyssDemon.getHealthPoints()<=0){
+            System.out.println("new Undead is created");
+          return new Undead(abyssDemon);
         }
 
+
     }
 
     @Override
-    public boolean fight(NPC enemy) {
-        int damage = this.getAttackPoints() - (this.getHealthPoints() + enemy.getDefencePoints());
-        System.out.println("Undead damage " + damage + " points");
-        return true;
+    public void attack() {
+        int damagePoints = this.getAttackPoints() - (this.getHealthPoints()+ abyssDemon.getDefencePoints());
     }
 
     @Override
-    public int protect() {
-        int damage = (this.getAttackPoints() + this.getDefencePoints()) + (this.getHealthPoints() + this.getAttackPoints());
-        System.out.println("Undead damage: " + damage + " points");
-        return damage;
+    public void defence() {
+        int damagePoints = this.getDefencePoints() + this.getHealthPoints() - abyssDemon.getAttackPoints();
     }
 
+    @Override
+    public void move() {
+
+
+    }
 
     @Override
     public void die() {
-        if (this.getHealthPoints() <= 0) {
-            int health = this.getHealthPoints();
-            health++;
-            System.out.println("Undead: What Is Dead May Never Die!" + '\t' + health + " health points added");
+        if(this.getHealthPoints()<=0){
+
         }
-    }
-
-    @Override
-    public Undead necromancy() {
-        System.out.println("new Undead is created");
-        return new Undead();
-    }
-
-    public void throwMud() {
-
-        System.out.println("Taste Necropolis  mud!");
-
 
     }
-
 }

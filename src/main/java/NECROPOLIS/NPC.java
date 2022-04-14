@@ -1,53 +1,81 @@
-package NECROPOLIS;
+package necropolis;
 
-public class NPC extends World {
+public abstract class NPC {
+    private String name;
+    private int attackPoints;
+    private int defencePoints;
+    private int damage;
+    private int healthPoints;
+    private NPC enemy;
+    private int x;
+
     public NPC() {
     }
 
-    public NPC(int attackPoints, int defencePoints, int damagePoints, int healthPoints,
-               int speed, int x, String speciality) {
-        super(attackPoints, defencePoints, damagePoints, healthPoints, speed, x, speciality);
+    public NPC(int attackPoints, int defencePoints, int damage, int healthPoints, NPC enemy, int x) {
+        this.attackPoints = attackPoints;
+        this.defencePoints = defencePoints;
+        this.damage = damage;
+        this.healthPoints = healthPoints;
+        this.enemy = enemy;
+        this.x = x;
     }
 
-    boolean enemyDefinition(Undead undead) {
-        if (undead != null) {
-            System.out.println("NPC: Here is my enemy");
-            return true;
-        }
-        return false;
+    public String getName() {
+        return name;
     }
 
-    public void move(Undead undead) {
-
-        int distance = undead.getX() - this.getX();
-        if (this.getAttackPoints() > distance) {
-            int xPos = undead.getX();
-            System.out.println("NPC: I'm moving towards you");
-            if (xPos == undead.getX()) {
-                System.out.println("NPC: I found you");
-            }
-
-        }
+    public void setName(String name) {
+        this.name = name;
     }
 
-    int fight(Undead undead) {
-        int damage = this.getAttackPoints() - (this.getHealthPoints() + undead.getDefencePoints());
-        System.out.println("NPC damage: " + damage + " points");
-        return damage;
-
+    public int getAttackPoints() {
+        return attackPoints;
     }
 
-    int protect() {
-        int damage = (this.getAttackPoints() + this.getDefencePoints()) + (this.getHealthPoints() + this.getAttackPoints());
-        System.out.println("NPC damage: " + damage + " points");
+    public void setAttackPoints(int attackPoints) {
+        this.attackPoints = attackPoints;
+    }
+
+    public int getDefencePoints() {
+        return defencePoints;
+    }
+
+    public void setDefencePoints(int defencePoints) {
+        this.defencePoints = defencePoints;
+    }
+
+    public int getDamage() {
         return damage;
     }
 
-
-    void die() {
-        if (this.getHealthPoints() <= 0) {
-            System.out.println("Your enemy is dead");
-
-        }
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
+
+    public int getHealthPoints() {
+        return healthPoints;
+    }
+
+    public void setHealthPoints(int healthPoints) {
+        this.healthPoints = healthPoints;
+    }
+
+    public NPC getEnemy() {
+        return enemy;
+    }
+
+    public void setEnemy(NPC enemy) {
+        this.enemy = enemy;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+
 }
